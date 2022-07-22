@@ -1,18 +1,24 @@
 # MAP.RIM
 
+## Description
+
+This file contains the map and probably some other things.
+
+## Structure
+
 Please note that even though MIPS I is *bi-endian*, PSX is *little endian*.
 
 |Offset|Size (bytes)|Name|Description|
 |------|----|----|-----------|
 |`0x0`|`0x800`|`padding`|Padding. Initially it's *mostly* filled with `0xFF`.|
-|`0x800`|`4`|`items`|Amount of items|
-|`0x804`|`items * 4`|Offsets relative to `0x800`. In function `0x80017540` each item's relative offset to memory is turned into absolute by adding the pointer to the `MAP.RIM` file + `0x800`.|
-|`+ items * 4`|`items * 56`|Items themselves!|
+|`0x800`|`4`|`itemCount`|Amount of items|
+|`0x804`|`itemCount * 4`|`itemOffsets`|Offsets relative to `0x800`. In function `0x80017540` each item's relative offset to memory is turned into absolute by adding the pointer to the `MAP.RIM` file + `0x800`.|
+|`+ items * 4`|`items * 56`|`items`|Items themselves!|
 
 
-## Item types
+### Item types
 
-### Shared (unless said otherwise)
+#### Shared (unless said otherwise)
 
 |Offset|Size (bytes)|Name|Description|
 |------|------------|----|-----------|
@@ -20,13 +26,13 @@ Please note that even though MIPS I is *bi-endian*, PSX is *little endian*.
 
 Sizes do not include the shared fields.
 
-### Quad
+#### Quad
 
 **ID:** `0x00010000` (`00 00 01 00`)
 
 **Size:** 52 bytes
 
-**Note:** VXY\* registers take two 16-bit values, while VZ\* registers take the whole 32-bit value.
+**Note:** VXY\* registers contain two signed 16-bit values, while VZ\* registers takes a signed 16-bit value sign extended to 32 bits.
 
 |Offset|Size (bytes)|Name|Description|
 |------|------------|----|-----------|
