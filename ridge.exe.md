@@ -8,9 +8,10 @@ The game executable itself.
 
 |Address (hex)|Data type|Description|Values|Notes|
 |-------------|---------|-----------|------|-----|
-|`80085d68`|short|Race track selection|1 up to 4|-|
+|`8007b5cc`|pointers[54]|Array of states (see [Game states](#game-states))|Valid function pointers||
+|`80085d68`|short|Race track selection|1 up to 4||
 |`80085e0c`|short|Music selection|0 - Random, 1 - Ridge Racer, 2 - Grip|Any value above 3 crashes the console immediately!|
-|`80085e0e`|short|Game state|See [Game states](#game-states)|Some values are... "normalised"? And the game keeps running as usual.|
+|`80085e0e`|short|Game state|See [Game states](#game-states)|Checked each frame, used as index for `8007b5cc`|
 
 ### Game states
 
@@ -55,7 +56,15 @@ The game executable itself.
 |`24`|Options -> Memory card -> Load|
 |`25`|Transition to Memory Card -> Save|
 |`26`|Options -> Memory card -> Save|
+|`27`|??? (jumps to `28`)|
+|`28` - `2a`|??? (jumps to Options)|
+|`2b`|??? (jumps to `2c`)|
+|`2c` - `2f`|??? (jumps to Options)|
+|`30`|Transition to Credits|
+|`31`|Credits|
 |`32`|Transition to Information|
 |`33`|Information|
 |`34`|Transition to other executable (NAMCO Catalogue or Original Mode)|
-|`35`|Now loading!|
+|`35`|Now loading! (the last safe game state)|
+|`36`|??? (jumps to `08`)|
+|`37` and onwards|Crashes the system because the index is out of bounds|
