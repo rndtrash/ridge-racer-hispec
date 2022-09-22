@@ -3,6 +3,7 @@
 ## Table of contents
 
  1. [MAP.RIM](map.rim.md)
+ 2. [RIDGE.EXE](ridge.exe.md)
 
 ## Usage
 

@@ -15,7 +15,8 @@ def read_file(map, position):
 			print('Quad')
 			print(read_quad(map))
 		case _:
-			print(f'Unknown ID {hex(id)}, ignoring')
+			padding = 10
+			print(f'Unknown ID {id:#0{padding}x}, ignoring')
 
 def read_quad(map):
 	return struct.unpack('<hhlhhlhhlxxxxxxxxxxxxxxxxxxxxxxxxL', map.read(52))
